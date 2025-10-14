@@ -1,8 +1,8 @@
 <?php
     class CintaVideo extends Soporte
     {
-        public function __construct(private $duracion) {
-            parent::__construct();
+        public function __construct($titulo, $numero, $precio, private $duracion) {
+            parent::__construct($titulo, $numero, $precio);
         }
 
         function setDuracion($duracion) {
@@ -18,4 +18,5 @@
             echo"<br>Tiene una duracion de : ".$this->duracion;
         }
     }
+    
 ?>
