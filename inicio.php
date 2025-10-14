@@ -1,5 +1,5 @@
 <?php
-// include "app/Soporte.php";
+include "app/Soporte.php";
 
 // $soporte1 = new Soporte("Telnet",22,3); 
 // echo "<strong>" . $soporte1->getTitulo() . "</strong>"; 

@@ -1,8 +1,8 @@
 <?php
     class Dvd extends Soporte
     {
-        public function __construct(private $idiomas, private $formatoPantalla) {
-            parent::__construct();
+        public function __construct($titulo, $numero, $precio, private $idiomas, private $formatoPantalla) {
+            parent::__construct($titulo, $numero, $precio);
         }
 
         function setIdiomas($idiomas) {
