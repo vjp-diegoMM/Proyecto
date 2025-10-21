@@ -15,6 +15,7 @@ class Videoclub
         $numero = count($this->productos) + 1;
         $cintaVideo = new CintaVideo($titulo, $numero, $precio, $duracion);
         $this->productos[] = $cintaVideo;
+        return $this;
     }
 
     public function incluirJuego($titulo, $precio, $consola, $minNumeroJugadores, $maxNumeroJugadores)
@@ -22,6 +23,7 @@ class Videoclub
         $numero = count($this->productos) + 1;
         $juego = new Juego($titulo, $numero, $precio, $consola, $minNumeroJugadores, $maxNumeroJugadores);
         $this->productos[] = $juego;
+        return $this;
     }
 
     public function incluirDvd($titulo, $precio, $idiomas, $formatoPantalla)
@@ -29,12 +31,14 @@ class Videoclub
         $numero = count($this->productos) + 1;
         $dvd = new Dvd($titulo, $numero, $precio, $idiomas, $formatoPantalla);
         $this->productos[] = $dvd;
+        return $this;
     }
 
     public function incluirSocio($nombre, $numero, $maxAlquileres = 3)
     {
         $cliente = new Cliente($nombre, $numero, $maxAlquileres);
         $this->socios[] = $cliente;
+        return $this;
     }
 
     public function listarProductos()
@@ -83,6 +87,7 @@ class Videoclub
         } else {
             echo "Cliente o soporte no encontrado.";
         }
+        return $this;
     }
 }
 ?>

@@ -45,7 +45,7 @@ class Cliente
         return false;
     }
 
-    public function alquilar(Soporte $s): bool
+    public function alquilar(Soporte $s)
     {
         if ($this->tieneAlquilado($s)) {
             echo "<br>El cliente ya tiene alquilado el soporte " . $s->getTitulo() . "<br><br>";
@@ -64,10 +64,11 @@ class Cliente
         $s->muestraResumen();
         echo "<br>";
 
-        return true;
+        // return true;
+        return $this;
     }
 
-    public function devolver(int $numSoporte): bool
+    public function devolver(int $numSoporte)
     {
         foreach ($this->soportesAlquilados as $index => $soporte) {
             if ($soporte->getNumero() === $numSoporte) {
@@ -80,7 +81,8 @@ class Cliente
         }
 
         echo "<br>No se ha podido encontrar el soporte en los alquileres de este cliente<br><br>";
-        return false;
+        // return false;
+        return $this;
     }
 
     public function listarAlquileres(): void
