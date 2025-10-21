@@ -1,4 +1,5 @@
 <?php
+include_once 'Soporte.php';
 class Juego extends Soporte
 {
     public function __construct($titulo, $numero, $precio, private $consola, private $minNumeroJugadores, private $maxNumeroJugadores) {

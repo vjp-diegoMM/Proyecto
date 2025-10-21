@@ -20,6 +20,11 @@ class Cliente
         $this->numero = $numero;
     }
 
+    public function getNombre(): string
+    {
+        return $this->nombre;
+    }
+
     public function getNumSoportesAlquilados(): int
     {
         return $this->numSoportesAlquilados;
@@ -56,7 +61,7 @@ class Cliente
         $this->numSoportesAlquilados++;
 
         echo "<br>Alquilado soporte a: " . $this->nombre . "<br><br>";
-        $s->muestraResumen(); // ✅ Mostrar el resumen del soporte (Película, Juego, etc.)
+        $s->muestraResumen();
         echo "<br>";
 
         return true;
