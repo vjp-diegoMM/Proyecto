@@ -10,6 +10,17 @@ class Videoclub
     public array $productos = [];
     public array $socios = [];
 
+    public int $numProductosAlquilados = 0;
+    public int $numTotalAlquileres = 0;
+
+    public function getNumProductosAlquilados(): int {
+        return $this->numProductosAlquilados;
+    }
+
+    public function getNumTotalAlquileres(): int {
+        return $this->numTotalAlquileres;
+    }
+    
     public function incluirCintaVideo($titulo, $precio, $duracion)
     {
         $numero = count($this->productos) + 1;

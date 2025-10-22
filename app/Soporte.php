@@ -3,6 +3,7 @@ include_once 'Resumible.php';
 abstract class Soporte implements Resumible
 {
     private const IVA = 21;
+    public bool $alquilado = false;
     public function __construct(private $titulo, private $numero, private $precio) {}
 
     function setTitulo($titulo) {
