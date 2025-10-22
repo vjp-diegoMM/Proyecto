@@ -22,7 +22,7 @@ class Dvd extends Soporte
         return $this->formatoPantalla;
     }
 
-    function mostrarResumen() {
+    function muestraResumen() {
         parent::muestraResumen();
         echo "Con los idiomas " . $this->idiomas . " con un formato de pantalla " . $this->formatoPantalla;
     }

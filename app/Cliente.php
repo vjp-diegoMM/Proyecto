@@ -45,7 +45,7 @@ class Cliente
         return false;
     }
 
-    public function alquilar(Soporte $s): bool
+     public function alquilar(Soporte $s): bool
     {
         if ($this->tieneAlquilado($s)) {
             echo "<br>El cliente ya tiene alquilado el soporte " . $s->getTitulo() . "<br><br>";
@@ -60,6 +60,8 @@ class Cliente
         $this->soportesAlquilados[] = $s;
         $this->numSoportesAlquilados++;
 
+        $s->alquilado = true;
+
         echo "<br>Alquilado soporte a: " . $this->nombre . "<br><br>";
         $s->muestraResumen();
         echo "<br>";
@@ -71,6 +73,8 @@ class Cliente
     {
         foreach ($this->soportesAlquilados as $index => $soporte) {
             if ($soporte->getNumero() === $numSoporte) {
+                $soporte->alquilado = false;
+
                 unset($this->soportesAlquilados[$index]);
                 $this->soportesAlquilados = array_values($this->soportesAlquilados);
                 $this->numSoportesAlquilados--;

@@ -123,5 +123,51 @@ class Videoclub
 
         return true;
     }
+
+     public function devolverSocioProducto(int $numSocio, int $numeroProducto)
+    {
+        return $this->devolverSocioProductos($numSocio, [$numeroProducto]);
+    }
+
+    public function devolverSocioProductos(int $numSocio, array $numerosProductos)
+    {
+        $cliente = null;
+        foreach ($this->socios as $s) {
+            if (method_exists($s, 'getNumero') && $s->getNumero() === $numSocio) {
+                $cliente = $s;
+                break;
+            }
+        }
+        if (!$cliente) {
+            echo "Cliente no encontrado.<br>";
+            return $this;
+        }
+
+        foreach ($numerosProductos as $numProd) {
+            $soporte = null;
+            foreach ($this->productos as $p) {
+                if ($p->getNumero() === $numProd) {
+                    $soporte = $p;
+                    break;
+                }
+            }
+            if (!$soporte) {
+                echo "Soporte #$numProd no encontrado.<br>";
+                continue;
+            }
+
+            $devuelto = $cliente->devolver($numProd);
+            if ($devuelto) {
+                $soporte->alquilado = false;
+                if ($this->numProductosAlquilados > 0) {
+                    $this->numProductosAlquilados--;
+                }
+            } else {
+                echo "No se pudo devolver el soporte #$numProd para el socio $numSocio<br>";
+            }
+        }
+
+        return $this;
+    }
 }
 ?>
