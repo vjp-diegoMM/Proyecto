@@ -12,6 +12,7 @@ class Videoclub
 
     public int $numProductosAlquilados = 0;
     public int $numTotalAlquileres = 0;
+    public int $numSocios = 0;
 
     public function getNumProductosAlquilados(): int {
         return $this->numProductosAlquilados;
@@ -70,13 +71,13 @@ class Videoclub
         }
     }
 
-    public function alquilaSocioProducto(int $numSocio, $numerosProductos): bool
+    public function alquilaSocioProducto(int $numSocio, $numerosProductos)
     {
         if (is_int($numerosProductos)) {
             $numerosProductos = [$numerosProductos];
         } elseif (!is_array($numerosProductos)) {
             echo "Parámetros inválidos para alquiler.<br>";
-            return false;
+            return $this;
         }
 
         // buscar cliente
@@ -89,7 +90,7 @@ class Videoclub
         }
         if (!$cliente) {
             echo "Cliente no encontrado.<br>";
-            return false;
+            return $this;
         }
         $soportesAAlquilar = [];
         foreach ($numerosProductos as $numProd) {
@@ -102,11 +103,11 @@ class Videoclub
             }
             if (!$encontrado) {
                 echo "Soporte #$numProd no encontrado. No se realiza ningún alquiler.<br>";
-                return false;
+                return $this;
             }
             if (isset($encontrado->alquilado) && $encontrado->alquilado) {
                 echo "Soporte #$numProd ya está alquilado. No se realiza ningún alquiler.<br>";
-                return false;
+                return $this;
             }
             $soportesAAlquilar[] = $encontrado;
         }
@@ -121,7 +122,7 @@ class Videoclub
             }
         }
 
-        return true;
+        return $this;
     }
 
      public function devolverSocioProducto(int $numSocio, int $numeroProducto)

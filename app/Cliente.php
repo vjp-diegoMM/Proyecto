@@ -16,6 +16,11 @@ class Cliente
         private int $maxAlquilerConcurrente = 3
     ) {}
 
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
     public function getNumero(): int
     {
         return $this->numero;
@@ -36,7 +41,7 @@ class Cliente
         return false;
     }
 
-     public function alquilar(Soporte $s): bool
+     public function alquilar(Soporte $s)
     {
         if ($s->alquilado) {
             throw new SoporteYaAlquiladoException('El soporte ya está alquilado');
@@ -54,7 +59,7 @@ class Cliente
         $s->muestraResumen();
         echo "<br>";
 
-        return true;
+        return $this;
     }
 
     public function devolver(int $numSoporte): self

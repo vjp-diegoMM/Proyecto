@@ -24,10 +24,10 @@ $vc->incluirSocio("Amancio Ortega");
 $vc->incluirSocio("Pablo Picasso", 2);
 
 try {
-    $vc->alquilarSocioProducto(1, 2)
-       ->alquilarSocioProducto(1, 3)
-       ->alquilarSocioProducto(1, 2)
-       ->alquilarSocioProducto(1, 6);
+    $vc->alquilaSocioProducto(2, 2)
+    ->alquilaSocioProducto(1, 3)
+    ->alquilaSocioProducto(1, 2)
+    ->alquilaSocioProducto(1, 6);
 } catch (\Exception $e) {
     echo "<br>Error: " . htmlspecialchars($e->getMessage()) . "<br>";
 }
