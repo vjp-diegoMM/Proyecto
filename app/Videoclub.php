@@ -70,30 +70,58 @@ class Videoclub
         }
     }
 
-    public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
+    public function alquilaSocioProducto(int $numSocio, $numerosProductos): bool
     {
-        $cliente = null;
-        $soporte = null;
+        if (is_int($numerosProductos)) {
+            $numerosProductos = [$numerosProductos];
+        } elseif (!is_array($numerosProductos)) {
+            echo "Parámetros inválidos para alquiler.<br>";
+            return false;
+        }
 
+        // buscar cliente
+        $cliente = null;
         foreach ($this->socios as $s) {
-            if (method_exists($s, 'getNumero') && $s->getNumero() == $numeroCliente) {
+            if (method_exists($s, 'getNumero') && $s->getNumero() === $numSocio) {
                 $cliente = $s;
                 break;
             }
         }
+        if (!$cliente) {
+            echo "Cliente no encontrado.<br>";
+            return false;
+        }
+        $soportesAAlquilar = [];
+        foreach ($numerosProductos as $numProd) {
+            $encontrado = null;
+            foreach ($this->productos as $p) {
+                if ($p->getNumero() === $numProd) {
+                    $encontrado = $p;
+                    break;
+                }
+            }
+            if (!$encontrado) {
+                echo "Soporte #$numProd no encontrado. No se realiza ningún alquiler.<br>";
+                return false;
+            }
+            if (isset($encontrado->alquilado) && $encontrado->alquilado) {
+                echo "Soporte #$numProd ya está alquilado. No se realiza ningún alquiler.<br>";
+                return false;
+            }
+            $soportesAAlquilar[] = $encontrado;
+        }
 
-        foreach ($this->productos as $p) {
-            if ($p->getNumero() == $numeroSoporte) {
-                $soporte = $p;
-                break;
+        foreach ($soportesAAlquilar as $soporte) {
+            $ok = $cliente->alquilar($soporte);
+            if ($ok) {
+                $this->numProductosAlquilados++;
+                $this->numTotalAlquileres++;
+            } else {
+                echo "No se pudo alquilar el soporte " . $soporte->getNumero() . " al cliente " . $cliente->getNombre() . "<br>";
             }
         }
 
-        if ($cliente && $soporte) {
-            $cliente->alquilar($soporte);
-        } else {
-            echo "Cliente o soporte no encontrado.";
-        }
+        return true;
     }
 }
 ?>
