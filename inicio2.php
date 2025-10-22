@@ -1,40 +1,47 @@
 <?php
-include_once "app/CintaVideo.php";
-include_once "app/Dvd.php";
-include_once "app/Juego.php";
-include_once "app/Cliente.php";
+require_once __DIR__ . '/autoload.php';
 
-//instanciamos un par de objetos cliente
+use Dwes\ProyectoVideoclub\CintaVideo;
+use Dwes\ProyectoVideoclub\Dvd;
+use Dwes\ProyectoVideoclub\Juego;
+use Dwes\ProyectoVideoclub\Cliente;
+
+// Crear clientes
 $cliente1 = new Cliente("Bruce Wayne", 23);
 $cliente2 = new Cliente("Clark Kent", 33);
 
-//mostramos el número de cada cliente creado 
-echo "<br>El identificador del cliente 1 es: " . $cliente1->getNumero();
-echo "<br>El identificador del cliente 2 es: " . $cliente2->getNumero();
+echo "ID cliente1: " . $cliente1->getNumero() . "<br>";
+echo "ID cliente2: " . $cliente2->getNumero() . "<br><br>";
 
-//instancio algunos soportes 
-$soporte1 = new CintaVideo("Los cazafantasmas", 23, 3.5, 107);
-$soporte2 = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);  
-$soporte3 = new Dvd("Origen", 24, 15, "es,en,fr", "16:9");
-$soporte4 = new Dvd("El Imperio Contraataca", 4, 3, "es,en","16:9");
+// Crear soportes concretos
+$soporte1 = new CintaVideo("Los cazafantasmas", 1, 3.5, 107);
+$soporte2 = new Juego("The Last of Us Part II", 2, 49.99, "PS4", 1, 1);
+$soporte3 = new Dvd("Origen", 3, 4.5, "es,en,fr", "16:9");
 
-//alquilo algunos soportes
-$cliente1->alquilar($soporte1);
-$cliente1->alquilar($soporte2);
-$cliente1->alquilar($soporte3);
+// Alquilar con encadenamiento; capturar excepciones que lancen los métodos
+try {
+    $cliente1->alquilar($soporte1)
+             ->alquilar($soporte2)
+             ->alquilar($soporte3);
+    echo "Alquileres realizados correctamente.<br>";
+} catch (\Exception $e) {
+    echo "Error al alquilar: " . htmlspecialchars($e->getMessage()) . "<br>";
+}
 
-//voy a intentar alquilar de nuevo un soporte que ya tiene alquilado
-$cliente1->alquilar($soporte1);
-//el cliente tiene 3 soportes en alquiler como máximo
-//este soporte no lo va a poder alquilar
-$cliente1->alquilar($soporte4);
-//este soporte no lo tiene alquilado
-$cliente1->devolver(4);
-//devuelvo un soporte que sí que tiene alquilado
-$cliente1->devolver(2);
-//alquilo otro soporte
-$cliente1->alquilar($soporte4);
-//listo los elementos alquilados
+echo "<br>Alquileres actuales del cliente1:<br>";
+echo "<pre>";
 $cliente1->listarAlquileres();
-//este cliente no tiene alquileres
-$cliente2->devolver(2);
+echo "</pre>";
+
+// Devolver un soporte y mostrar estado
+try {
+    $cliente1->devolver(2);
+    echo "<br>Devolución realizada.<br>";
+} catch (\Exception $e) {
+    echo "Error al devolver: " . htmlspecialchars($e->getMessage()) . "<br>";
+}
+
+echo "<br>Alquileres tras devolución:<br>";
+echo "<pre>";
+$cliente1->listarAlquileres();
+echo "</pre>";

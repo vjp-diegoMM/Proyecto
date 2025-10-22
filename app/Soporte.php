@@ -1,40 +1,40 @@
 <?php
-include_once 'Resumible.php';
+namespace Dwes\ProyectoVideoclub;
+
 abstract class Soporte implements Resumible
 {
-    private const IVA = 21;
-    public function __construct(private $titulo, private $numero, private $precio) {}
+    private static float $IVA = 0.21;
+    public bool $alquilado = false;
 
-    function setTitulo($titulo) {
-        $this->titulo = $titulo;
-    }
+    public function __construct(
+        protected string $titulo,
+        protected int $numero,
+        protected float $precio
+    ) {}
 
-    function setNumero($numero) {
-        $this->numero = $numero;
-    }
-
-    function setPrecio($precio) {
-        $this->precio = $precio;
-    }
-
-    function getTitulo() {
-        return $this->titulo;
-    }
-
-    function getNumero() {
-        return $this->numero;
-    }
-
-    function getPrecio() {
+    public function getPrecio(): float
+    {
         return $this->precio;
     }
 
-    function getPrecioConIVA() {
-        return $this->precio + ($this->precio * self::IVA / 100);
+    public function getPrecioConIVA(): float
+    {
+        return $this->precio * (1 + self::$IVA);
     }
 
-    function muestraResumen() {
-        echo "<br>El " . $this->titulo . " es el numero " . $this->numero . " y tiene un precio de " . $this->precio . " euros\n";
+    public function getNumero(): int
+    {
+        return $this->numero;
+    }
+
+    public function getTitulo(): string
+    {
+        return $this->titulo;
+    }
+
+    public function muestraResumen(): void
+    {
+        echo $this->titulo . PHP_EOL;
     }
 }
 ?>

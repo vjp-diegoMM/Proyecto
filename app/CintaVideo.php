@@ -1,22 +1,21 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 include_once 'Soporte.php';
     class CintaVideo extends Soporte
     {
-        public function __construct($titulo, $numero, $precio, private $duracion) {
-            parent::__construct($titulo, $numero, $precio);
-        }
+        private int $duracion;
 
-        function setDuracion($duracion) {
+        public function __construct(string $titulo, int $numero, float $precio, int $duracion)
+        {
+            parent::__construct($titulo, $numero, $precio);
             $this->duracion = $duracion;
         }
-        
-        function getDuracion() {
-            return $this->duracion;
-        }
 
-        function muestraResumen(){
+        public function muestraResumen(): void
+        {
             parent::muestraResumen();
-            echo"<br>Tiene una duracion de : ".$this->duracion;
+            echo " Duración: {$this->duracion} min" . PHP_EOL;
         }
     }
     

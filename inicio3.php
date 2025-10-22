@@ -1,32 +1,42 @@
 <?php
-include_once "app/Videoclub.php"; // No incluimos nada más
+require_once 'autoload.php';
 
-$vc = new Videoclub("Severo 8A"); 
+use Dwes\ProyectoVideoclub\Videoclub;
 
-//voy a incluir unos cuantos soportes de prueba 
-$vc->incluirJuego("God of War", 19.99, "PS4", 1, 1); 
+$vc = new Videoclub("Severo 8A");
+
+// Incluir productos (Videoclub asigna los números internamente)
+$vc->incluirJuego("God of War", 19.99, "PS4", 1, 1);
 $vc->incluirJuego("The Last of Us Part II", 49.99, "PS4", 1, 1);
-$vc->incluirDvd("Torrente", 4.5, "es","16:9"); 
-$vc->incluirDvd("Origen", 4.5, "es,en,fr", "16:9"); 
-$vc->incluirDvd("El Imperio Contraataca", 3, "es,en","16:9"); 
-$vc->incluirCintaVideo("Los cazafantasmas", 3.5, 107); 
-$vc->incluirCintaVideo("El nombre de la Rosa", 1.5, 140); 
+$vc->incluirDvd("Torrente", 4.5, "es", "16:9");
+$vc->incluirDvd("Origen", 4.5, "es,en,fr", "16:9");
+$vc->incluirDvd("El Imperio Contraataca", 3, "es,en", "16:9");
+$vc->incluirCintaVideo("Los cazafantasmas", 3.5, 107);
+$vc->incluirCintaVideo("El nombre de la Rosa", 1.5, 140);
 
-//listo los productos 
-$vc->listarProductos(); 
+// Listar productos (mostrar en bloque pre para conservar saltos)
+echo "<h3>Productos:</h3><pre>";
+$vc->listarProductos();
+echo "</pre>";
 
-//voy a crear algunos socios 
-$vc->incluirSocio("Amancio Ortega",1); 
-$vc->incluirSocio("Pablo Picasso", 2); 
+// Crear socios
+$vc->incluirSocio("Amancio Ortega");
+$vc->incluirSocio("Pablo Picasso", 2);
 
-$vc->alquilaSocioProducto(1,2); 
-$vc->alquilaSocioProducto(1,3); 
-//alquilo otra vez el soporte 2 al socio 1. 
-// no debe dejarme porque ya lo tiene alquilado 
-$vc->alquilaSocioProducto(1,2); 
-//alquilo el soporte 6 al socio 1. 
-//no se puede porque el socio 1 tiene 2 alquileres como máximo 
-$vc->alquilaSocioProducto(1,6); 
+try {
+    $vc->alquilarSocioProducto(1, 2)
+       ->alquilarSocioProducto(1, 3)
+       ->alquilarSocioProducto(1, 2)
+       ->alquilarSocioProducto(1, 6);
+} catch (\Exception $e) {
+    echo "<br>Error: " . htmlspecialchars($e->getMessage()) . "<br>";
+}
 
-//listo los socios 
+// Listar socios y sus resúmenes
+echo "<h3>Socios:</h3><pre>";
 $vc->listarSocios();
+echo "</pre>";
+
+// Mostrar contadores (opcional)
+echo "<br>Productos alquilados: " . $vc->getNumProductosAlquilados();
+echo "<br>Total alquileres realizados: " . $vc->getNumTotalAlquileres();

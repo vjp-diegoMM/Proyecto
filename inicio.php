@@ -1,26 +1,28 @@
 <?php
-include "app/Soporte.php";
+// Incluimos el archivo de autocarga de clases
+require_once __DIR__ . '/autoload.php';
 
-// $soporte1 = new Soporte("Telnet",22,3); 
-// echo "<strong>" . $soporte1->getTitulo() . "</strong>"; 
-// echo "<br>Precio: " . $soporte1->getPrecio() . " euros"; 
-// echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
-// $soporte1->muestraResumen();
+// Importamos las clases que vamos a utilizar
+use Dwes\ProyectoVideoclub\CintaVideo;
+use Dwes\ProyectoVideoclub\Juego;
 
-// include "app/Dvd.php";
+// Creamos una nueva cinta de video con título "Tenet", id 22, precio 3.0 y duración 150
+$soporte1 = new CintaVideo("Tenet", 22, 3.0, 150);
 
-// $miDvd = new Dvd("Origen", 24, 15, "es,en,fr", "16:9"); 
-// echo "<strong>" . $miDvd->getTitulo() . "</strong>"; 
-// echo "<br>Precio: " . $miDvd->getPrecio() . " euros"; 
-// echo "<br>Precio IVA incluido: " . $miDvd->getPrecioConIva() . " euros";
-// $miDvd->muestraResumen();
+// Mostramos información de la cinta
+echo "<strong>" . htmlspecialchars($soporte1->getTitulo()) . "</strong><br>";
+echo "Precio: " . $soporte1->getPrecio() . " euros<br>";
+echo "Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros<br>";
+echo "<pre>";
+$soporte1->muestraResumen();
+echo "</pre>";
 
-include "app/Juego.php";
-
+// Creamos un nuevo juego con título, id, precio, consola, jugadores mínimos y máximos
 $miJuego = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 1, 1); 
+
+// Mostramos información del juego
 echo "<strong>" . $miJuego->getTitulo() . "</strong>"; 
 echo "<br>Precio: " . $miJuego->getPrecio() . " euros"; 
-echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
+echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIVA() . " euros";
 $miJuego->muestraResumen();
-
 ?>

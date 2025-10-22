@@ -1,30 +1,25 @@
 <?php
+namespace Dwes\ProyectoVideoclub;
+
 include_once 'Soporte.php';
 class Juego extends Soporte
 {
-    public function __construct($titulo, $numero, $precio, private $consola, private $minNumeroJugadores, private $maxNumeroJugadores) {
+    private string $consola;
+    private int $minNumJugadores;
+    private int $maxNumJugadores;
+
+    public function __construct(string $titulo, int $numero, float $precio, string $consola, int $minNumJugadores, int $maxNumJugadores)
+    {
         parent::__construct($titulo, $numero, $precio);
-    }
-
-    function setConsola($consola) {
         $this->consola = $consola;
+        $this->minNumJugadores = $minNumJugadores;
+        $this->maxNumJugadores = $maxNumJugadores;
     }
 
-    function getConsola() {
-        return $this->consola;
-    }
-
-    function muestraJugadoresPosibles() {
-        if ($this->minNumeroJugadores == $this->maxNumeroJugadores) {
-            return $this->minNumeroJugadores." jugador(es)";
-        } else {
-            return $this->minNumeroJugadores." - ".$this->maxNumeroJugadores." jugadores";
-        }
-    }
-
-    function muestraResumen() {
+    public function muestraResumen(): void
+    {
         parent::muestraResumen();
-        echo"Para la consola ".$this->consola." con un numero de jugadores de ".$this->muestraJugadoresPosibles();
+        echo " Consola: {$this->consola} Jugadores: {$this->minNumJugadores}-{$this->maxNumJugadores}" . PHP_EOL;
     }
 }
 ?>
