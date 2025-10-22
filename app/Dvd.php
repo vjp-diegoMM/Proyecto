@@ -13,6 +13,14 @@ class Dvd extends Soporte
         $this->formatoPantalla = $formatoPantalla;
     }
 
+    function getIdiomas() {
+        return $this->idiomas;
+    }
+
+    function getFormatoPantalla() {
+        return $this->formatoPantalla;
+    }
+
     public function muestraResumen(): void
     {
         parent::muestraResumen();

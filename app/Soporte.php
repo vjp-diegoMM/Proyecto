@@ -3,38 +3,40 @@ namespace Dwes\ProyectoVideoclub;
 
 abstract class Soporte implements Resumible
 {
-    private static float $IVA = 0.21;
+    private const IVA = 21;
     public bool $alquilado = false;
+    public function __construct(private $titulo, private $numero, private $precio) {}
 
-    public function __construct(
-        protected string $titulo,
-        protected int $numero,
-        protected float $precio
-    ) {}
-
-    public function getPrecio(): float
-    {
-        return $this->precio;
+    function setTitulo($titulo) {
+        $this->titulo = $titulo;
     }
 
-    public function getPrecioConIVA(): float
-    {
-        return $this->precio * (1 + self::$IVA);
+    function setNumero($numero) {
+        $this->numero = $numero;
     }
 
-    public function getNumero(): int
-    {
-        return $this->numero;
+    function setPrecio($precio) {
+        $this->precio = $precio;
     }
 
-    public function getTitulo(): string
-    {
+    function getTitulo() {
         return $this->titulo;
     }
 
-    public function muestraResumen(): void
-    {
-        echo $this->titulo."<br>";
+    function getNumero() {
+        return $this->numero;
+    }
+
+    function getPrecio() {
+        return $this->precio;
+    }
+
+    function getPrecioConIVA() {
+        return $this->precio + ($this->precio * self::IVA / 100);
+    }
+
+    function muestraResumen() {
+        echo "<br>El " . $this->titulo . " es el numero " . $this->numero . " y tiene un precio de " . $this->precio . " euros\n";
     }
 }
 ?>

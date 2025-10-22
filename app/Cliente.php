@@ -36,7 +36,7 @@ class Cliente
         return false;
     }
 
-    public function alquilar(Soporte $s): self
+     public function alquilar(Soporte $s): bool
     {
         if ($s->alquilado) {
             throw new SoporteYaAlquiladoException('El soporte ya está alquilado');
@@ -47,16 +47,24 @@ class Cliente
 
         $this->soportesAlquilados[] = $s;
         $this->numSoportesAlquilados++;
+
         $s->alquilado = true;
-        return $this;
+
+        echo "<br>Alquilado soporte a: " . $this->nombre . "<br><br>";
+        $s->muestraResumen();
+        echo "<br>";
+
+        return true;
     }
 
     public function devolver(int $numSoporte): self
     {
-        foreach ($this->soportesAlquilados as $k => $al) {
-            if ($al->getNumero() === $numSoporte) {
-                $al->alquilado = false;
-                unset($this->soportesAlquilados[$k]);
+        foreach ($this->soportesAlquilados as $index => $soporte) {
+            if ($soporte->getNumero() === $numSoporte) {
+                $soporte->alquilado = false;
+
+                unset($this->soportesAlquilados[$index]);
+                $this->soportesAlquilados = array_values($this->soportesAlquilados);
                 $this->numSoportesAlquilados--;
                 return $this;
             }
