@@ -1,5 +1,8 @@
 <?php
-    interface Resumible{
-        function muestraResumen();
-    }
+namespace Dwes\ProyectoVideoclub;
+
+interface Resumible
+{
+    function muestraResumen();
+}
 ?>
