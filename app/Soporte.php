@@ -34,7 +34,7 @@ abstract class Soporte implements Resumible
 
     public function muestraResumen(): void
     {
-        echo $this->titulo . PHP_EOL;
+        echo $this->titulo."<br>";
     }
 }
 ?>

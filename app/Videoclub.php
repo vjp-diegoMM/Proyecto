@@ -87,9 +87,9 @@ class Videoclub
             $cliente->alquilar($soporte);
             $this->numProductosAlquilados++;
             $this->numTotalAlquileres++;
-            echo "Alquiler OK" . PHP_EOL;
+            echo "Alquiler OK";
         } catch (VideoclubException $e) {
-            echo "No se pudo alquilar: " . $e->getMessage() . PHP_EOL;
+            echo "No se pudo alquilar: " . $e->getMessage();
         }
 
         return $this;

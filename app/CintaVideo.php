@@ -15,7 +15,7 @@ include_once 'Soporte.php';
         public function muestraResumen(): void
         {
             parent::muestraResumen();
-            echo " Duración: {$this->duracion} min" . PHP_EOL;
+            echo " Duración: {$this->duracion} min <br>";
         }
     }
     

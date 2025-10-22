@@ -66,8 +66,8 @@ class Cliente
 
     public function listarAlquileres(): void
     {
-        echo "Cliente: {$this->nombre}" . PHP_EOL;
-        echo "Alquileres: {$this->numSoportesAlquilados}" . PHP_EOL;
+        echo "Cliente: {$this->nombre} <br>";
+        echo "Alquileres: {$this->numSoportesAlquilados} <br>";
         foreach ($this->soportesAlquilados as $al) {
             $al->muestraResumen();
         }
@@ -75,7 +75,7 @@ class Cliente
 
     public function muestraResumen(): void
     {
-        echo "{$this->nombre} ({$this->numero}) - Alquileres: {$this->numSoportesAlquilados}" . PHP_EOL;
+        echo "{$this->nombre} ({$this->numero}) - Alquileres: {$this->numSoportesAlquilados} <br>";
     }
 }
     

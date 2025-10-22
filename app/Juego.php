@@ -19,7 +19,7 @@ class Juego extends Soporte
     public function muestraResumen(): void
     {
         parent::muestraResumen();
-        echo " Consola: {$this->consola} Jugadores: {$this->minNumJugadores}-{$this->maxNumJugadores}" . PHP_EOL;
+        echo " Consola: {$this->consola} Jugadores: {$this->minNumJugadores}-{$this->maxNumJugadores}";
     }
 }
 ?>
